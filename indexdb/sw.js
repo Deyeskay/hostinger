@@ -1,5 +1,6 @@
 // Simple offline cache (app shell)
-const CACHE = 'offline-grocery-v1';
+const CACHE = 'offline-grocery-v2';
+
 const ASSETS = [
   './',
   './index.html',

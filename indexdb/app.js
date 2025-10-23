@@ -1,5 +1,6 @@
-// Minimal IndexedDB helper (via CDN)
-import { get, set, del, keys } from "https://cdn.jsdelivr.net/npm/idb-keyval@6/dist/esm/index.js";
+// Minimal IndexedDB helper (via CDN) 
+import { get, set, del, keys } from "https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm";
+
 
 // Keys in IndexedDB will look like: "grocery:<id>"
 const $ = (sel) => document.querySelector(sel);
