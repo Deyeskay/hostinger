@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Offline Grocery List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 24px; background:#0f1115; color:#f1f3f4; }
+    h1 { margin: 0 0 12px; }
+    .row { display:flex; gap:8px; align-items:center; margin: 10px 0; }
+    input { flex:1; padding:8px 10px; border-radius:8px; border:1px solid #2a2e3a; background:#10131a; color:#f1f3f4; }
+    button { padding:8px 12px; border-radius:8px; border:1px solid #2a2e3a; background:#171a23; color:#f1f3f4; cursor:pointer; }
+    ul { list-style: none; padding:0; margin-top:14px; }
+    li { display:flex; justify-content:space-between; align-items:center; padding:10px; margin:8px 0;
+         background:#151821; border:1px solid #232633; border-radius:10px; }
+    .empty { opacity:.7; padding:12px; border:1px dashed #333; border-radius:10px; }
+    .meta { color:#9aa0a6; font-size:.9rem; margin-top:6px; }
+    #offline { display:none; color:#ffd26e; }
+  </style>
+</head>
+<body>
+  <h1>🛒 Offline Grocery List <small id="offline">(offline)</small></h1>
+
+  <div class="row">
+    <input id="itemInput" placeholder="Add item (e.g., Milk)" />
+    <button id="addBtn">Add</button>
+    <button id="clearBtn" title="Remove all items">Clear</button>
+  </div>
+
+  <div class="meta">Saved in your browser with IndexedDB. Works without internet.</div>
+
+  <ul id="list"></ul>
+
+  <!-- App -->
+  <script type="module" src="./app.js"></script>
+
+  <!-- Service worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+      const $o = document.getElementById('offline');
+      const update = () => $o.style.display = navigator.onLine ? 'none' : 'inline';
+      window.addEventListener('online', update);
+      window.addEventListener('offline', update);
+      update();
+    }
+  </script>
+</body>
+</html>
